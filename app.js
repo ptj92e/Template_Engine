@@ -1,3 +1,5 @@
-let questions = require("./lib/inquirer");
+let Question = require("./lib/inquirer");
 
-questions.newManager();
+//let question = new Question();
+
+Question.newManager();
