@@ -48,7 +48,7 @@ function newEmployee() {
             name: "newEmployee",
         },
     ]).then(function (response) {
-
+        //This function determines which function operates next depending on the input from the user
         if (response.newEmployee === "Engineer") {
             newEngineer();
         } else if (response.newEmployee === "Intern") {
@@ -82,8 +82,11 @@ function newEngineer() {
             name: "github",
         },
     ]).then(function (res) {
+        //This function takes in the response information from the inquirer prompts and passes it into a new variable called engineer
         let engineer = new Engineer(res.name, res.id, res.email, res.github);
+        // This line pushes the new engineer variable into the employeeArray
         employeeArray.push(engineer);
+        //This line calls the new employee function
         newEmployee();
     });
 };
@@ -111,17 +114,21 @@ function newIntern() {
             name: "school",
         },
     ]).then(function (res) {
+        //This function takes in the response information from the inquirer prompts and passes it into a new variable called intern
         let intern = new Intern(res.name, res.id, res.email, res.school);
+        // This line pushes the new intern variable into the employeeArray
         employeeArray.push(intern);
+        //This line calls the new employee function
         newEmployee();
     });
 };
-
+//This vaiable accepts the HTML output from the employeeHTML function
 let rowHTML = [];
 
 function employeeHTML() {
+    //This function loops over the employeeArray and creates HTML based off of each employee
     employeeArray.forEach(function(employee) {
-
+    
         if (employee.title === "Manager") {
             let managerText = managerHTML(employee.name, employee.title, employee.id, employee.email, employee.officeNumber);
             rowHTML.push(managerText);
@@ -132,7 +139,7 @@ function employeeHTML() {
             let internText = internHTML(employee.name, employee.title, employee.id, employee.email, employee.school);
             rowHTML.push(internText);
         }
-
+        //If the employee is a manager, a new manager card is created and pushed to the rowHTML array
         function managerHTML() {
             return `<div class="card m-3 shadow-lg">
                 <div class="card-header bg-primary text-white">
@@ -148,7 +155,7 @@ function employeeHTML() {
                 </div>
             </div>`
         }
-
+        //If the employee is a engineer, a new engineer card is created and pushed to the rowHTML array
         function engineerHTML() {
             return `<div class="card m-3 shadow-lg">
                 <div class="card-header bg-primary text-white">
@@ -164,7 +171,7 @@ function employeeHTML() {
                 </div>
             </div>`
         }
-
+        //If the employee is a intern, a new intern card is created and pushed to the rowHTML array
         function internHTML() {
             return `<div class="card m-3 shadow-lg">
                 <div class="card-header bg-primary text-white">
@@ -185,10 +192,8 @@ function employeeHTML() {
 };
 
 function generateHTML() {
-
+    //This calls the employeeHTML funciton and creates the employee cards from the employeeArray
     employeeHTML();
-
-    console.log(employeeArray);
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -215,7 +220,7 @@ function generateHTML() {
     
     </html>`
 };
-
+//This function writes the HTML file
 function writeHTML() {
     fs.writeFile("team.html", generateHTML(), function (err) {
 
@@ -227,5 +232,5 @@ function writeHTML() {
 
     });
 };
-
+//This calls the newManager function which starts the whole application
 newManager();
