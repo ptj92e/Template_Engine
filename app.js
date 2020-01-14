@@ -222,7 +222,7 @@ function generateHTML() {
 };
 //This function writes the HTML file
 function writeHTML() {
-    fs.writeFile("team.html", generateHTML(), function (err) {
+    fs.writeFile("./output/team.html", generateHTML(), function (err) {
 
         if (err) {
             return console.log(err);
